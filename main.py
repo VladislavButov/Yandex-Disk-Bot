@@ -10,10 +10,10 @@ from aiogram.types import CallbackQuery
 
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(token='6117875309:AAHOok95JNdKBjzmQRBkMpLRUGK4Z3OcNqc')
+bot = Bot(token='')
 dp = Dispatcher(bot)
 
-y = yadisk.YaDisk(token="y0_AgAAAAAxHul9AAnMtwAAAADh3k3ptoPpRDo5T2SZUr2l2xoBNTJ97EA")
+y = yadisk.YaDisk(token="")
 print(y.check_token())
 
 
