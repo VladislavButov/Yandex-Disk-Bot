@@ -40,6 +40,7 @@ async def command_start(message: types.Message, state: FSMContext = False):
         conn.commit()
         cursor.close()
         conn.close()
+        await message.answer("Ваш аккаунт успешно привязан!")
 
     else:
         await message.answer("Добро пожаловать в Яндекс Диск")

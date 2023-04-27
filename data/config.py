@@ -6,8 +6,8 @@ load_dotenv()
 
 BOT_TOKEN = str(os.getenv("BOT_TOKEN"))
 
-CLIENT_ID = "fd3ae7ee6e394e6c8a67336d27b319ba"
-CLIENT_SECRET = "aaeb0b3e017443b89a972196c72214d1"
+CLIENT_ID = str(os.getenv("CLIENT_ID"))
+CLIENT_SECRET = str(os.getenv("CLIENT_SECRET"))
 
 admins_id = [
     782389029, # Влад
