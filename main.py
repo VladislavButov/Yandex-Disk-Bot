@@ -9,11 +9,11 @@ from aiogram.utils import executor
 logging.basicConfig(level=logging.INFO)
 
 
-bot = Bot(token='6117875309:AAHOok95JNdKBjzmQRBkMpLRUGK4Z3OcNqc')
+bot = Bot(token='')
 dp = Dispatcher(bot)
 
 
-yadisk = YaDisk(token='8d93b64cec2f460fa7e2a77d765696de')
+yadisk = YaDisk(token='')
 
 
 
