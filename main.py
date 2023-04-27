@@ -1,46 +1,41 @@
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher, types
-from aiogram.types import ParseMode
-from yadisk import YaDisk
+from aiogram.types import ParseMode, InputFile
+import yadisk
 from aiogram.utils import executor
+from aiogram.types import ReplyKeyboardRemove
+from aiogram.types import CallbackQuery
 
 
 logging.basicConfig(level=logging.INFO)
 
-
 bot = Bot(token='6117875309:AAHOok95JNdKBjzmQRBkMpLRUGK4Z3OcNqc')
 dp = Dispatcher(bot)
 
-
-yadisk = YaDisk(token='8d93b64cec2f460fa7e2a77d765696de')
-
+y = yadisk.YaDisk(token="y0_AgAAAAAxHul9AAnMtwAAAADh3k3ptoPpRDo5T2SZUr2l2xoBNTJ97EA")
+print(y.check_token())
 
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    await message.answer("Добро пожаловать в Яндекс Диск")
+    keyboard = types.InlineKeyboardMarkup()
+    keyboard.add(types.InlineKeyboardButton("Загрузить файл", callback_data="upload"))
+    await message.answer("Добро пожаловать в Яндекс Диск", reply_markup=keyboard)
 
 
-
-@dp.message_handler(commands=['list'])
-async def list_files(message: types.Message):
-    files = yadisk.listdir('/')
-    file_names = [f['name'] for f in files]
-    if not file_names:
-        await message.answer("Ваш Яндекс Диск пуст!")
-    else:
-        file_names_str = "\n".join(file_names)
-        await message.answer(f"Ваши файлы:\n{file_names_str}")
-
+@dp.callback_query_handler(lambda c: c.data == 'upload')
+async def process_upload(callback_query: CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+    await bot.send_message(callback_query.from_user.id, "Пришлите мне файл, который вы хотите загрузить!")
+    # Remove the "Upload" button from the keyboard
+    await bot.send_message(callback_query.from_user.id, "Вы можете вернуться к списку файлов командой /list",
+                           reply_markup=ReplyKeyboardRemove())
+    # Register the handler for the next message the user sends, which will be the file
+    dp.register_message_handler(save_file)
 
 
-@dp.message_handler(commands=['upload'])
-async def upload_file(message: types.Message):
-    await message.answer("Пришлите мне файл, который вы хотите загрузить!")
-    await bot.register_next_step_handler(message, save_file)
-
-
+@dp.message_handler(content_types=['document'])
 async def save_file(message: types.Message):
     file_id = message.document.file_id
     file = await bot.get_file(file_id)
@@ -48,9 +43,8 @@ async def save_file(message: types.Message):
     file_name = file_path.split("/")[-1]
     with open(file_name, "wb") as f:
         await bot.download_file_by_id(file_id, f)
-    yadisk.upload(file_name, file_name)
+    y.upload(file_name, file_name)
     await message.answer(f"Файл '{file_name}' загружен на Яндекс Диск!")
-
 
 
 if __name__ == '__main__':
