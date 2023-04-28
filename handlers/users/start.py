@@ -8,6 +8,7 @@ from aiogram.dispatcher.filters import Command
 from data.config import CLIENT_ID, CLIENT_SECRET
 from filters import IsPrivate
 from handlers.users.menu import menu
+from keyboards.default import kb_menu
 from loader import dp
 
 from requests import post
@@ -40,10 +41,11 @@ async def command_start(message: types.Message, state: FSMContext = False):
         conn.commit()
         cursor.close()
         conn.close()
-        await message.answer("Ваш аккаунт успешно привязан!")
+        await message.answer("Ваш аккаунт успешно привязан.\n"
+                             "Теперь вы можете полноценно пользоваться Яндекс Диском в Telegram!", reply_markup=kb_menu)
 
     else:
-        await message.answer("Добро пожаловать в Яндекс Диск")
+        await message.answer("Добро пожаловать в Яндекс Диск", reply_markup=kb_menu)
 
         await menu(message)
 
