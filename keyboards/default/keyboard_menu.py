@@ -9,9 +9,6 @@ kb_menu = ReplyKeyboardMarkup(
             KeyboardButton(text="👤Профиль"),
             KeyboardButton(text="👨‍💻Помощь"),
         ],
-        [
-            KeyboardButton(text="❓Справочный центр")
-        ]
     ],
     resize_keyboard=True
 )

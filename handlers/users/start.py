@@ -12,7 +12,7 @@ from keyboards.default import kb_menu
 from loader import dp
 
 from requests import post
-from states.connect_with_disk import ConnectWithYaDisk
+
 
 
 @dp.message_handler(IsPrivate(), Command("start"), state="*")
