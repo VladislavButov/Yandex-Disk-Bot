@@ -134,8 +134,7 @@ async def save_file(message: types.Message, state: FSMContext):
     datta = await state.get_data()
     corr_dir = datta.get("corr_dir")
     yadisk = YaDisk(token=data[1])
-    yadisk.upload(file_name, corr_dir + "/" +file_name)
+    yadisk.upload(file_name, corr_dir + "/" + file_name)
     await message.answer(f"Файл '{file_name}' загружен на Яндекс Диск!")
-    os.remove(f"documents/{file_name}")
+    os.remove(file_name)
     await ConnectWithYaDisk.get_files.set()
-
