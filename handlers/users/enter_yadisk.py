@@ -3,24 +3,14 @@ import sqlite3
 
 from aiogram import types
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters import Command
-from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-from requests import post
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from yadisk import YaDisk
 
 from filters import IsPrivate
 from handlers.users.menu import menu
 from loader import dp
 
-from data.config import CLIENT_ID, CLIENT_SECRET
-
-from urllib.parse import urlencode
-
 from states.connect_with_disk import ConnectWithYaDisk
-
-from aiogram.utils.callback_data import CallbackData
-
-from urllib.parse import urlparse, parse_qs
 
 import requests
 import io

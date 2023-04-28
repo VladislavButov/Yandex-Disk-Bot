@@ -1,10 +1,8 @@
 import sqlite3
 
-from aiogram.dispatcher.filters import Text
 from aiogram import types
-from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.dispatcher import FSMContext
-from aiogram.types import ContentType
 
 from data.config import CLIENT_ID
 from filters import IsPrivate
@@ -61,6 +59,13 @@ async def command_calculate(message: types.Message, state: FSMContext):
 async def command_calculate(message: types.Message):
     await message.answer("Профиль")
     # Добавить возможность привязать другой аккаунт или отвязать или рефку вообще ёбнуть
+
+
+@dp.message_handler(IsPrivate(), text="👨‍💻Помощь")
+async def command_calculate(message: types.Message):
+    await message.answer("Если возникли сложности при использовании бота, напишите нашим администраторам:"
+                         " @vladislavmain"
+                         " @swyatoslavik")
 
 
 @dp.message_handler(IsPrivate(), text="🏠Главное меню")

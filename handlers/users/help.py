@@ -10,5 +10,7 @@ from loader import dp
 async def command_help(message: types.Message, state: FSMContext = False):
     if state:
         await state.finish()
-    await message.answer("Здесь будет помощь, но чуть позже")
+    await message.answer("Если возникли сложности при использовании бота, напишите нашим администраторам:"
+                         " @vladislavmain"
+                         " @swyatoslavik")
     await menu(message)
